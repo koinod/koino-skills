@@ -1,6 +1,6 @@
 # KOINO Skills — Free Agent Skills for Business Automation
 
-> 10 production-tested skills for sales, content, operations, and growth.
+> 14 production-tested skills for sales, content, operations, and growth.
 > Compatible with Claude Code, Codex, Gemini CLI, Cursor, Windsurf, and 30+ AI agents.
 
 ## Skills
@@ -17,6 +17,10 @@
 | 8 | [agent-fleet-status](./agent-fleet-status) | DevOps | Multi-machine health dashboard via SSH |
 | 9 | [cron-automator](./cron-automator) | DevOps | Generate cron jobs from plain English scheduling requests |
 | 10 | [competitor-analyzer](./competitor-analyzer) | Research | Competitive intelligence: pricing, features, weaknesses |
+| 11 | [ai-cold-email](./ai-cold-email) | Sales | Generate personalized cold outreach emails |
+| 12 | [content-repurpose](./content-repurpose) | Content | Turn transcripts into social media posts |
+| 13 | [workflow-auditor](./workflow-auditor) | Operations | Audit workflows and find automation opportunities |
+| 14 | [roi-calculator](./roi-calculator) | Finance | Calculate AI automation ROI |
 
 ## Install
 

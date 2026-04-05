@@ -1,168 +1,245 @@
-# Lead Scorer
+---
+name: lead-scorer
+description: Score and prioritize your leads with AI
+version: 1.0.0
+author: KOINO Capital
+license: MIT
+tags: [sales, leads, scoring, crm, prioritization, pipeline]
+---
 
-> Score any prospect 0-100. Get a classification: HOT, WARM, COLD, or DISQUALIFIED.
+# AI Lead Scorer
 
-## Description
+Score any lead 0-100 and get a clear action plan. Stop guessing which leads to call first -- let data and pattern matching decide.
 
-Lead Scorer evaluates a prospect against a configurable rubric and returns a numeric score with classification. It eliminates guesswork from pipeline prioritization — stop wasting time on COLD leads when HOT ones are waiting.
+## Usage
 
-The default rubric covers B2B service businesses, but every weight is configurable for your industry.
+Provide lead information in any format. The more you provide, the better the score:
 
-## Activation
+### Required Fields
 
-This skill activates when:
-- The user provides prospect information and wants to know if they should pursue
-- The user asks to prioritize a list of leads
-- The user mentions lead scoring, qualification, or pipeline prioritization
-- The user asks "is this a good lead?" or "should I follow up?"
+| Field | Example |
+|-------|---------|
+| **Lead Name** | "Marcus Webb" |
+| **Company** | "TerraForce Industrial" |
+| **Source** | "Inbound -- downloaded pricing PDF" |
 
-**Trigger phrases**: "score this lead", "qualify this prospect", "is this worth pursuing", "prioritize these leads", "lead score", "how hot is this lead"
+### Optional Fields (improve accuracy)
 
-## Default Scoring Rubric
-
-### Budget Signal (0-25 points)
-How likely can they afford your solution?
-
-| Points | Signal |
-|--------|--------|
-| 20-25 | Stated budget range matches or exceeds your pricing |
-| 15-19 | Company revenue/size suggests budget is available |
-| 10-14 | Industry typically has budget for this, no direct signal |
-| 5-9 | Small company, unclear budget, or mentioned budget concerns |
-| 0-4 | Explicitly stated no budget, or company too small |
-
-### Authority (0-20 points)
-Is this person a decision-maker?
-
-| Points | Signal |
-|--------|--------|
-| 16-20 | C-suite, founder, or confirmed sole decision-maker |
-| 11-15 | VP/Director with budget authority, or confirmed influencer |
-| 6-10 | Manager who "needs to check with" someone |
-| 1-5 | Individual contributor, intern, or researcher |
-| 0 | Unknown role or no contact information |
-
-### Need Urgency (0-25 points)
-How painful is their current situation?
-
-| Points | Signal |
-|--------|--------|
-| 20-25 | Active pain: losing money, customers, or employees because of this problem |
-| 15-19 | Acknowledged problem with a stated timeline to fix |
-| 10-14 | Aware of the problem but no urgency to solve |
-| 5-9 | Vaguely interested, "exploring options" |
-| 0-4 | No identified need, or happy with current solution |
-
-### Fit (0-20 points)
-Does this prospect match your ideal customer profile?
-
-| Points | Signal |
-|--------|--------|
-| 16-20 | Perfect ICP match: industry, size, tech stack, use case |
-| 11-15 | Strong match with 1 minor misalignment |
-| 6-10 | Partial match — could work but not ideal |
-| 1-5 | Poor fit — would require significant customization |
-| 0 | Outside your capability or target market entirely |
-
-### Engagement (0-10 points)
-How responsive and engaged is the prospect?
-
-| Points | Signal |
-|--------|--------|
-| 8-10 | Responded same day, asked detailed questions, scheduled next step |
-| 5-7 | Responded within 48h, showed interest |
-| 3-4 | Responded but vague, no commitment to next step |
-| 1-2 | Slow response, one-word answers |
-| 0 | No response or ghosted |
-
-## Instructions
-
-When given prospect information, respond with:
-
-```
-## Lead Score: [Company/Name]
-
-| Factor | Score | Signal |
-|--------|-------|--------|
-| Budget | XX/25 | [evidence] |
-| Authority | XX/20 | [evidence] |
-| Need Urgency | XX/25 | [evidence] |
-| Fit | XX/20 | [evidence] |
-| Engagement | XX/10 | [evidence] |
-
-**Total Score**: XX/100
-**Classification**: [HOT / WARM / COLD / DISQUALIFIED]
-
-### Recommended Action
-[Specific next step based on classification]
-
-### Missing Information
-[What data would change the score if obtained]
-```
-
-## Classifications
-
-| Range | Class | Action |
-|-------|-------|--------|
-| 80-100 | **HOT** | Prioritize immediately. Book a call within 24 hours. Send proposal. |
-| 60-79 | **WARM** | Nurture actively. Follow up within 48 hours. Send case study. |
-| 30-59 | **COLD** | Add to drip sequence. Check back in 30 days. Low-effort follow-up only. |
-| 0-29 | **DISQUALIFIED** | Remove from pipeline. Document why. Do not spend time. |
-
-## Example
-
-### Input
-> Company: GreenTree Landscaping. Revenue ~$800K/year. Owner (Mike) reached out after seeing our LinkedIn post. Said "we're drowning in admin work and losing bids because we can't respond fast enough." Wants to meet this week. 15 employees. Service area: mid-Atlantic.
-
-### Output
-
-| Factor | Score | Signal |
-|--------|-------|--------|
-| Budget | 18/25 | $800K revenue, 15 employees — can likely afford $2-5K/mo. No explicit budget stated. |
-| Authority | 20/20 | Owner. Sole decision-maker. |
-| Need Urgency | 23/25 | "Drowning" + losing revenue (bids). Active pain with financial impact. |
-| Fit | 17/20 | Service business, right size, right geography. Strong ICP match. |
-| Engagement | 9/10 | Inbound lead, wants to meet this week. High intent. |
-
-**Total Score**: 87/100
-**Classification**: HOT
-
-### Recommended Action
-Book the call TODAY. Before the meeting, prepare a 1-page proposal showing how automation handles bid responses in <5 minutes. Bring a case study from a similar service business. This is a close-in-one-call opportunity.
-
-### Missing Information
-- Specific budget range (ask: "What are you currently spending on admin tools/staff?")
-- Current tech stack (do they use any CRM or is everything manual?)
-- Timeline: "This week" for meeting, but when do they need a solution live?
-
-## Custom Rubrics
-
-Override the default weights for your industry:
-
-```
-Rubric: E-commerce SaaS
-Budget: 0-30 (weight higher — SaaS requires recurring commitment)
-Authority: 0-15 (lower — e-commerce decisions are often faster)
-Need: 0-25 (same)
-Fit: 0-20 (same)
-Engagement: 0-10 (same)
-```
-
-When providing a custom rubric, specify the factor names, max points, and any modified criteria.
-
-## Batch Scoring
-
-Provide multiple prospects in a list format and receive a ranked table:
-
-```
-| Rank | Company | Score | Class | Top Action |
-|------|---------|-------|-------|------------|
-| 1 | GreenTree | 87 | HOT | Call today |
-| 2 | Apex HVAC | 64 | WARM | Send case study |
-| 3 | BlueRidge Co | 31 | COLD | Drip sequence |
-```
+| Field | Example |
+|-------|---------|
+| **Title/Role** | "Director of Operations" |
+| **Company Size** | "85 employees, ~$12M revenue" |
+| **Industry** | "Industrial equipment manufacturing" |
+| **Interaction History** | "Opened 3 emails, attended webinar, asked about pricing" |
+| **Budget Signals** | "Mentioned Q2 budget approval" |
+| **Timeline** | "Looking to implement by June" |
+| **Pain Points** | "Current system requires manual data entry across 4 platforms" |
+| **Competition** | "Currently evaluating us and 2 competitors" |
+| **Notes** | "Referred by existing client. Seemed frustrated with current vendor." |
 
 ---
 
-*Built by [KOINO Capital](https://koino.capital) — Agentic growth systems that run while you sleep.*
-*Want this running autonomously 24/7? [Deploy with KOINO](https://koino.capital/deploy)*
+## Scoring Framework
+
+### Category Weights (default)
+
+| Category | Weight | What It Measures |
+|----------|--------|-----------------|
+| **Fit** | 30% | How well do they match your ideal customer? |
+| **Intent** | 25% | How much buying behavior have they shown? |
+| **Authority** | 20% | Can this person actually make or influence the decision? |
+| **Timing** | 15% | Is there urgency or a deadline driving them? |
+| **Engagement** | 10% | How actively are they interacting with you? |
+
+You can customize these weights. Just specify your preferred weights and they'll be applied.
+
+### Fit Score (0-30 points)
+
+| Signal | Points |
+|--------|--------|
+| Company size matches ICP | +5-10 |
+| Industry is in your sweet spot | +5-10 |
+| They have the problem you solve | +5-10 |
+| Geography/market alignment | +2-5 |
+| Tech stack compatibility (if relevant) | +2-5 |
+| Revenue range matches your pricing | +3-5 |
+
+**Deductions:**
+| Signal | Points |
+|--------|--------|
+| Company too small for your pricing | -5 to -10 |
+| Industry you've never served | -3 to -5 |
+| No clear problem match | -5 to -10 |
+
+### Intent Score (0-25 points)
+
+| Signal | Points |
+|--------|--------|
+| Requested pricing/proposal | +10-15 |
+| Mentioned specific timeline | +5-10 |
+| Compared you to competitors (means they're shopping) | +5-8 |
+| Asked detailed product/service questions | +5-8 |
+| Downloaded bottom-of-funnel content | +3-5 |
+| Visited pricing page (if tracked) | +3-5 |
+| Mentioned budget availability | +5-10 |
+
+**Deductions:**
+| Signal | Points |
+|--------|--------|
+| "Just researching" with no timeline | -5 to -10 |
+| Only engaged with top-of-funnel content | -3 to -5 |
+| Ghosted after initial contact | -5 to -8 |
+
+### Authority Score (0-20 points)
+
+| Signal | Points |
+|--------|--------|
+| C-suite or business owner | +15-20 |
+| VP or Director level | +10-15 |
+| Manager with budget authority | +8-12 |
+| Individual contributor (but champion) | +5-8 |
+| Explicitly said "I make this decision" | +5 bonus |
+| Mentioned needing board/committee approval | -3 to -5 |
+| Intern or junior role | -5 to -10 |
+
+### Timing Score (0-15 points)
+
+| Signal | Points |
+|--------|--------|
+| Actively in buying process NOW | +12-15 |
+| Deadline mentioned (contract renewal, fiscal year, event) | +8-12 |
+| "Next quarter" | +5-8 |
+| "Sometime this year" | +3-5 |
+| No timeline mentioned | +1-2 |
+| "Maybe next year" | 0 |
+
+### Engagement Score (0-10 points)
+
+| Signal | Points |
+|--------|--------|
+| Responded within 24 hours | +3-5 |
+| Multiple touchpoints (email + call + event) | +3-5 |
+| Referred by existing customer | +5 (max) |
+| Engaged with 3+ pieces of content | +2-4 |
+| Single interaction only | +1-2 |
+| Has not responded to outreach | 0-1 |
+
+---
+
+## Output Format
+
+For each lead, deliver:
+
+### 1. Score Summary
+
+```
+LEAD: [Name] at [Company]
+SCORE: [X]/100
+CATEGORY: [HOT / WARM / COLD]
+CONFIDENCE: [HIGH / MEDIUM / LOW] (based on how much info was provided)
+```
+
+**Category thresholds:**
+- **HOT (75-100)**: Contact within 24 hours. High fit, strong intent, decision-maker, urgent timeline.
+- **WARM (40-74)**: Nurture actively. Good potential but missing one or more key signals.
+- **COLD (0-39)**: Low priority. Add to nurture sequence but don't spend active selling time.
+
+### 2. Score Breakdown
+
+```
+Fit:        [X]/30  -- [1-sentence explanation]
+Intent:     [X]/25  -- [1-sentence explanation]
+Authority:  [X]/20  -- [1-sentence explanation]
+Timing:     [X]/15  -- [1-sentence explanation]
+Engagement: [X]/10  -- [1-sentence explanation]
+```
+
+### 3. Key Signals
+
+List the top 3 positive signals and top 3 risk factors:
+
+**Positive:**
+- [Signal 1]
+- [Signal 2]
+- [Signal 3]
+
+**Risk Factors:**
+- [Risk 1]
+- [Risk 2]
+- [Risk 3]
+
+### 4. Action Brief
+
+Based on the score, provide a specific action plan:
+
+**For HOT leads:**
+- Recommended next step (specific, not generic)
+- Talking points tailored to their pain points
+- Potential objections to prepare for
+- Suggested timeline for follow-up
+
+**For WARM leads:**
+- What information is missing that would upgrade them to HOT
+- Specific nurture actions (content to send, questions to ask)
+- Trigger events to watch for
+- Re-score date recommendation
+
+**For COLD leads:**
+- Why they scored low (honest assessment)
+- Whether they're worth keeping in the pipeline at all
+- Automated nurture recommendation
+- Conditions that would trigger re-evaluation
+
+---
+
+## Batch Scoring
+
+You can score multiple leads at once. Provide a list and receive:
+
+1. Individual scores for each lead
+2. A **priority ranking** (sorted by score, descending)
+3. A **pipeline summary**:
+   - Total leads scored
+   - HOT / WARM / COLD distribution
+   - Average score
+   - Top 3 leads to contact TODAY
+
+---
+
+## Customization
+
+### Custom ICP Definition
+
+If you provide your Ideal Customer Profile, scoring becomes dramatically more accurate:
+
+```
+My ICP:
+- Industry: [e.g., "B2B SaaS, $5M-$50M ARR"]
+- Company size: [e.g., "50-500 employees"]
+- Decision maker: [e.g., "VP Sales or CRO"]
+- Budget range: [e.g., "$2K-$10K/month"]
+- Key pain: [e.g., "Manual reporting takes 20+ hours/week"]
+- Disqualifiers: [e.g., "Under $1M revenue, no dedicated sales team"]
+```
+
+### Custom Weight Adjustment
+
+Override default weights for your sales motion:
+
+- **High-ticket enterprise**: Increase Authority to 30%, reduce Engagement to 5%
+- **Self-serve product**: Increase Intent to 35%, reduce Authority to 10%
+- **Referral-heavy business**: Increase Engagement to 20%, reduce Timing to 10%
+
+---
+
+## Scoring Accuracy Tips
+
+1. **More data = better scores.** A lead with just a name and company will get a LOW confidence score. That's honest, not a bug.
+2. **Re-score after new interactions.** A WARM lead who requests pricing should be re-scored immediately.
+3. **Calibrate to your close rate.** If your HOT leads aren't closing at 30%+, your scoring weights need adjustment.
+4. **Don't ignore COLD leads entirely.** 10% of today's COLD leads become next quarter's HOT leads. Automate nurture, don't delete.
+5. **Trust the risks section.** If the score is high but the risks are serious, investigate before investing heavy time.
+
+---
+
+*Powered by [KOINO Capital](https://koino.capital) -- AI systems that fill your pipeline and close your deals.*
