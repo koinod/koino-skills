@@ -3,6 +3,8 @@
 > 14 production-tested skills for sales, content, operations, and growth.
 > Compatible with Claude Code, Codex, Gemini CLI, Cursor, Windsurf, and 30+ AI agents.
 
+> **Looking for the full operational fleet?** This repo is the public-facing trim subset (14 polished skills for distribution). The complete 76-skill master operational repo is at **[koinod/skills](https://github.com/koinod/skills)** — that's where koinod fleet agents go to find capabilities and save new ones. Failure log + patterns at **[ceoian/agent-learnings](https://github.com/ceoian/agent-learnings)**.
+
 ## Skills
 
 | # | Skill | Category | What It Does |
